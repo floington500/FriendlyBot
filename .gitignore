@@ -1,0 +1,17 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# out
+out/
+
+# Resources
+/src/main/resources
+
+# Maven
+log/
+target/
+
+# Enviorment variables
+.env
