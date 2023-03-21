@@ -1,7 +1,6 @@
 package me.flo456123.FriendlyBot.listeners;
 
 import me.flo456123.FriendlyBot.command.CommandManager;
-import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
