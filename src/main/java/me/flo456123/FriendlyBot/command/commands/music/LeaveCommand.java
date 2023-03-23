@@ -2,7 +2,6 @@ package me.flo456123.FriendlyBot.command.commands.music;
 
 import me.flo456123.FriendlyBot.command.CommandContext;
 import me.flo456123.FriendlyBot.command.ICommand;
-import me.flo456123.FriendlyBot.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
