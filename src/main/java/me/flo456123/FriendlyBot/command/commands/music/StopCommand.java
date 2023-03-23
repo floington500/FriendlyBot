@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.entities.Member;
 
 public class StopCommand implements ICommand {
     @Override
-    @SuppressWarnings("NullPointerException")
     public void handle(CommandContext ctx) {
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();

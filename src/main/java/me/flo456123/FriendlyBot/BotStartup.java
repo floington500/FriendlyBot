@@ -18,7 +18,7 @@ public class BotStartup {
     
     private final JDA jda;
 
-    public BotStartup() throws LoginException {
+    public BotStartup() throws LoginException, InterruptedException {
         jda = JDABuilder.createDefault(
                 Config.get("TOKEN"),
                         GatewayIntent.GUILD_MEMBERS,
@@ -32,7 +32,8 @@ public class BotStartup {
                         CacheFlag.SCHEDULED_EVENTS
                 ))
                 .enableCache(CacheFlag.VOICE_STATE)
-                .build();
+                .build()
+                .awaitReady();
         List<CommandData> commands = new ArrayList<>();
         commands.add(Commands.slash("join", "makes the bot join your voice channel"));
         commands.add(Commands.slash("leave", "makes the bot leave your voice channel"));
@@ -56,11 +57,9 @@ public class BotStartup {
     public static void main(String[] args) {
         try {
             BotStartup startup = new BotStartup();
-            startup.getJDA().awaitReady();
         } catch (LoginException | InterruptedException e) {
             System.out.println("Failed to login!");
         }
-        // See `Listener::onReady` to do things before startup
 
     }
 
