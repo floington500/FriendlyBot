@@ -29,4 +29,10 @@ public class GuildMusicManager {
         return this.sendHandler;
     }
 
+    public void stopPlayer() {
+        getScheduler().setLooping(false);
+        getScheduler().getQueue().clear();
+        getScheduler().getPlayer().stopTrack();
+    }
+
 }
