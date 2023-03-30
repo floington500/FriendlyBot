@@ -1,6 +1,9 @@
 package me.flo456123.FriendlyBot;
 
-import me.flo456123.FriendlyBot.listeners.Listener;
+import me.flo456123.FriendlyBot.jda.commands.CommandManager;
+import me.flo456123.FriendlyBot.common.listeners.OnGuildVoiceUpdate;
+import me.flo456123.FriendlyBot.common.listeners.OnSlashCommands;
+import me.flo456123.FriendlyBot.jda.config.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -14,13 +17,24 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+/**
+ * Create a new bot instance and prepare and start it up.
+ */
 public class BotStartup {
-    
     private final JDA jda;
+
+    public static void main(String[] args) {
+        try {
+            BotStartup startup = new BotStartup();
+        } catch (LoginException | InterruptedException e) {
+            System.out.println("Failed to login!");
+        }
+
+    }
 
     public BotStartup() throws LoginException, InterruptedException {
         jda = JDABuilder.createDefault(
-                Config.get("TOKEN"),
+                        Config.get("TOKEN"),
                         GatewayIntent.GUILD_MEMBERS,
                         GatewayIntent.GUILD_MESSAGES,
                         GatewayIntent.GUILD_VOICE_STATES)
@@ -34,7 +48,11 @@ public class BotStartup {
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build()
                 .awaitReady();
+
+        CommandManager commandManager = new CommandManager();
         List<CommandData> commands = new ArrayList<>();
+
+        //TODO: Move inside commandManager
         commands.add(Commands.slash("join", "makes the bot join your voice channel"));
         commands.add(Commands.slash("leave", "makes the bot leave your voice channel"));
         commands.add(Commands.slash("play", "makes the bot play a song")
@@ -47,20 +65,7 @@ public class BotStartup {
 
         jda.updateCommands().addCommands(commands).queue();
 
-        jda.addEventListener(new Listener());
+        jda.addEventListener(new OnGuildVoiceUpdate());
+        jda.addEventListener(new OnSlashCommands(commandManager));
     }
-
-    public JDA getJDA() {
-        return jda;
-    }
-
-    public static void main(String[] args) {
-        try {
-            BotStartup startup = new BotStartup();
-        } catch (LoginException | InterruptedException e) {
-            System.out.println("Failed to login!");
-        }
-
-    }
-
 }

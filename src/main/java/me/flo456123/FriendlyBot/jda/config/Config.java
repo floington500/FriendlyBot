@@ -1,4 +1,4 @@
-package me.flo456123.FriendlyBot;
+package me.flo456123.FriendlyBot.jda.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

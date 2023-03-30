@@ -1,4 +1,4 @@
-package me.flo456123.FriendlyBot.lavaplayer;
+package me.flo456123.FriendlyBot.common.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;

@@ -1,6 +1,6 @@
-package me.flo456123.FriendlyBot.command;
+package me.flo456123.FriendlyBot.jda.commands;
 
-import me.flo456123.FriendlyBot.command.commands.music.*;
+import me.flo456123.FriendlyBot.common.command.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,9 +1,10 @@
-package me.flo456123.FriendlyBot.command.commands.music;
+package me.flo456123.FriendlyBot.common.command;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import me.flo456123.FriendlyBot.command.CommandContext;
-import me.flo456123.FriendlyBot.lavaplayer.GuildMusicManager;
-import me.flo456123.FriendlyBot.lavaplayer.PlayerManager;
+import me.flo456123.FriendlyBot.jda.commands.CommandContext;
+import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
+import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
+import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 
 public class SkipCommand extends VoiceAction {
 

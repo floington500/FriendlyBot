@@ -1,11 +1,9 @@
-package me.flo456123.FriendlyBot.command.commands.music;
+package me.flo456123.FriendlyBot.jda.commands;
 
-import me.flo456123.FriendlyBot.command.CommandContext;
-import me.flo456123.FriendlyBot.command.ICommand;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 
-abstract class VoiceAction implements ICommand {
+public abstract class VoiceAction implements ICommand {
 
     public boolean checkChannel(CommandContext ctx) {
         final Member self = ctx.getSelfMember();

@@ -1,7 +1,8 @@
-package me.flo456123.FriendlyBot.command.commands.music;
+package me.flo456123.FriendlyBot.common.command;
 
-import me.flo456123.FriendlyBot.command.CommandContext;
-import me.flo456123.FriendlyBot.lavaplayer.PlayerManager;
+import me.flo456123.FriendlyBot.jda.commands.CommandContext;
+import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
+import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.managers.AudioManager;
 

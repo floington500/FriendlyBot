@@ -1,4 +1,4 @@
-package me.flo456123.FriendlyBot.lavaplayer;
+package me.flo456123.FriendlyBot.common.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class GuildMusicManager {
     private final AudioPlayer audioPlayer;
-
     private final TrackScheduler scheduler;
     private final AudioPlayerSendHandler sendHandler;
 
