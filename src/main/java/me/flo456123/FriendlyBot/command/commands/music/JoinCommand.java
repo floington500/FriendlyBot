@@ -1,16 +1,17 @@
 package me.flo456123.FriendlyBot.command.commands.music;
 
 import me.flo456123.FriendlyBot.command.CommandContext;
-import me.flo456123.FriendlyBot.command.ICommand;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
-public class JoinCommand implements ICommand {
+public class JoinCommand extends VoiceAction {
+    private AudioManager audioManager;
+    private VoiceChannel memberChannel;
 
     @Override
-    public void handle(final CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
@@ -29,15 +30,19 @@ public class JoinCommand implements ICommand {
             return;
         }
 
-        final AudioManager audioManager = ctx.getGuild().getAudioManager();
-        final VoiceChannel memberChannel = memberVoiceState.getChannel().asVoiceChannel();
+        audioManager = ctx.getGuild().getAudioManager();
+        memberChannel = memberVoiceState.getChannel().asVoiceChannel();
 
-        // check if bot has permission to join the channel
         if (!memberChannel.canTalk(self)) {
             ctx.event().reply("I don't have permission to join that channel!").setEphemeral(true).queue();
             return;
         }
 
+        handleVoice(ctx);
+    }
+
+    @Override
+    protected void handleVoice(CommandContext ctx) {
         audioManager.openAudioConnection(memberChannel);
         ctx.event().replyFormat("Successfully joined `%s`", memberChannel.getName()).queue();
     }

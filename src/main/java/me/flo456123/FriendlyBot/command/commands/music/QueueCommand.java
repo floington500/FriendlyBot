@@ -3,7 +3,6 @@ package me.flo456123.FriendlyBot.command.commands.music;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.flo456123.FriendlyBot.command.CommandContext;
-import me.flo456123.FriendlyBot.command.ICommand;
 import me.flo456123.FriendlyBot.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.lavaplayer.PlayerManager;
 
@@ -12,12 +11,13 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class QueueCommand implements ICommand {
+public class QueueCommand extends VoiceAction {
+    private BlockingQueue<AudioTrack> queue;
 
     @Override
     public void handle(CommandContext ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
-        final BlockingQueue<AudioTrack> queue = musicManager.getScheduler().getQueue();
+        queue = musicManager.getScheduler().getQueue();
 
         // check if queue is empty
         if (queue.isEmpty()) {
@@ -25,6 +25,13 @@ public class QueueCommand implements ICommand {
             return;
         }
 
+        super.checkChannel(ctx);
+
+        handleVoice(ctx);
+    }
+
+    @Override
+    protected void handleVoice(CommandContext ctx) {
         final int track_count = Math.min(queue.size(), 5); // limiting the songs displayed to 5
         final List<AudioTrack> trackList = new ArrayList<>(queue);
 
