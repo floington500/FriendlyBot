@@ -1,5 +1,6 @@
 package me.flo456123.FriendlyBot.jda.commands;
 
+import me.flo456123.FriendlyBot.common.command.JoinCommand;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -11,7 +12,9 @@ public abstract class VoiceAction implements ICommand {
 
         // check if the bot isn't in a voice channel
         if (!selfVoiceState.inAudioChannel()) {
-            ctx.event().reply("I need to be in a voice channel to play songs!").setEphemeral(true).queue();
+            //Run the join command, and have the bot join the channel.
+            JoinCommand runCmd = new JoinCommand();
+            runCmd.handle(ctx);
         }
 
         final Member user = ctx.getMember();
