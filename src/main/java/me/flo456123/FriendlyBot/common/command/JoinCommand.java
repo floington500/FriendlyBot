@@ -7,10 +7,19 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
+/**
+ * Responsible for handling the "join" command, which makes the bot join the user's voice
+ */
 public class JoinCommand extends VoiceAction {
     private AudioManager audioManager;
     private VoiceChannel memberChannel;
 
+    /**
+     * Handles the execution of the "join" command, which makes the bot join the user's
+     * voice channel after checking the user's and bots voice states and permissions.
+     *
+     * @param ctx the CommandContext of the command event.
+     */
     @Override
     public void handle(CommandContext ctx) {
         final Member self = ctx.getSelfMember();
@@ -34,6 +43,7 @@ public class JoinCommand extends VoiceAction {
         audioManager = ctx.getGuild().getAudioManager();
         memberChannel = memberVoiceState.getChannel().asVoiceChannel();
 
+        // check if the bot has permission to join the user's voice channel
         if (!memberChannel.canTalk(self)) {
             ctx.event().reply("I don't have permission to join that channel!").setEphemeral(true).queue();
             return;
@@ -42,6 +52,11 @@ public class JoinCommand extends VoiceAction {
         handleVoice(ctx);
     }
 
+    /**
+     * Handles the logic to make the bot join the user's voice channel.
+     *
+     * @param ctx The context of the command.
+     */
     @Override
     protected void handleVoice(CommandContext ctx) {
         audioManager.openAudioConnection(memberChannel);
@@ -52,5 +67,4 @@ public class JoinCommand extends VoiceAction {
     public String getName() {
         return "join";
     }
-
 }

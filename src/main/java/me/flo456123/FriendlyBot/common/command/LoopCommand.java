@@ -5,8 +5,16 @@ import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 
+/**
+ * Responsible for handling the "loop" command, which loops the current song that is playing.
+ */
 public class LoopCommand extends VoiceAction {
 
+    /**
+     * Handles the logic for looping the current song that is playing.
+     *
+     * @param ctx the CommandContext of the command event.
+     */
     @Override
     protected void handleVoice(CommandContext ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
@@ -21,5 +29,4 @@ public class LoopCommand extends VoiceAction {
     public String getName() {
         return "loop";
     }
-
 }

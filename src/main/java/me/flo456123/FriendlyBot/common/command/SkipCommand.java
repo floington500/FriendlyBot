@@ -6,8 +6,16 @@ import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 
+/**
+ * Responsible for skipping the current song that is playing and proceeding to the next one.
+ */
 public class SkipCommand extends VoiceAction {
 
+    /**
+     * Skips the current song that is playing and proceeds to the next one in the queue.
+     *
+     * @param ctx the CommandContext of the command event.
+     */
     @Override
     protected void handleVoice(CommandContext ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
@@ -19,8 +27,10 @@ public class SkipCommand extends VoiceAction {
             return;
         }
 
+        // skip to the next track
         musicManager.getScheduler().nextTrack();
 
+        // notify the user that the current track has been skipped
         ctx.event().reply("Skipped the current track!").queue();
     }
 
@@ -28,5 +38,4 @@ public class SkipCommand extends VoiceAction {
     public String getName() {
         return "skip";
     }
-
 }

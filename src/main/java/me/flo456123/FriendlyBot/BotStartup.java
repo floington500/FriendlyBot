@@ -32,6 +32,13 @@ public class BotStartup {
 
     }
 
+    /**
+     * Constructs a new {@link BotStartup} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
+     * Also sets up the {@link CommandManager}, registers the bots slash commands, and adds the bots listeners.
+     *
+     * @throws LoginException if the login credentials are invalid
+     * @throws InterruptedException if the JDA instance was interrupted while waiting to connect
+     */
     public BotStartup() throws LoginException, InterruptedException {
         jda = JDABuilder.createDefault(
                         Config.get("TOKEN"),
