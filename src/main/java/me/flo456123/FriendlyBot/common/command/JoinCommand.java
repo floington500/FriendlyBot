@@ -1,11 +1,13 @@
 package me.flo456123.FriendlyBot.common.command;
 
-import me.flo456123.FriendlyBot.jda.commands.CommandContext;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
+
+import java.util.Objects;
 
 /**
  * Responsible for handling the "join" command, which makes the bot join the user's voice
@@ -21,31 +23,34 @@ public class JoinCommand extends VoiceAction {
      * @param ctx the CommandContext of the command event.
      */
     @Override
-    public void handle(CommandContext ctx) {
-        final Member self = ctx.getSelfMember();
+    public void handle(SlashCommandInteractionEvent ctx) {
+        final Member self = Objects.requireNonNull(ctx.getGuild()).getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
         // check if the bot isn't in a voice channel
+        assert selfVoiceState != null;
         if (selfVoiceState.inAudioChannel()) {
-            ctx.event().reply("Sorry! I am already in a voice channel.").setEphemeral(true).queue();
+            ctx.reply("Sorry! I am already in a voice channel.").setEphemeral(true).queue();
             return;
         }
 
         final Member client = ctx.getMember();
+        assert client != null;
         final GuildVoiceState memberVoiceState = client.getVoiceState();
 
         // check to see if the user isn't in a voice channel
+        assert memberVoiceState != null;
         if (!memberVoiceState.inAudioChannel()) {
-            ctx.event().reply("You need to be in a voice channel to use this command!").setEphemeral(true).queue();
+            ctx.reply("You need to be in a voice channel to use this command!").setEphemeral(true).queue();
             return;
         }
 
         audioManager = ctx.getGuild().getAudioManager();
-        memberChannel = memberVoiceState.getChannel().asVoiceChannel();
+        memberChannel = Objects.requireNonNull(memberVoiceState.getChannel()).asVoiceChannel();
 
         // check if the bot has permission to join the user's voice channel
         if (!memberChannel.canTalk(self)) {
-            ctx.event().reply("I don't have permission to join that channel!").setEphemeral(true).queue();
+            ctx.reply("I don't have permission to join that channel!").setEphemeral(true).queue();
             return;
         }
 
@@ -58,9 +63,9 @@ public class JoinCommand extends VoiceAction {
      * @param ctx The context of the command.
      */
     @Override
-    protected void handleVoice(CommandContext ctx) {
+    protected void handleVoice(SlashCommandInteractionEvent ctx) {
         audioManager.openAudioConnection(memberChannel);
-        ctx.event().replyFormat("Successfully joined `%s`", memberChannel.getName()).queue();
+        ctx.replyFormat("Successfully joined `%s`", memberChannel.getName()).queue();
     }
 
     @Override

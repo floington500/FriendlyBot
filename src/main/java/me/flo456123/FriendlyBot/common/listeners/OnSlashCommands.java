@@ -1,6 +1,6 @@
 package me.flo456123.FriendlyBot.common.listeners;
 
-import me.flo456123.FriendlyBot.jda.commands.CommandManager;
+import me.flo456123.FriendlyBot.jda.commands.handler.CommandHandler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -12,14 +12,14 @@ public class OnSlashCommands extends ListenerAdapter {
     /**
      * The command manager used to handle incoming slash command interactions.
      */
-    private final CommandManager commandManager;
+    private final CommandHandler commandManager;
 
     /**
      * Constructs a new {@link OnSlashCommands} instance with the given command manager.
      *
-     * @param commandManager the {@link CommandManager} to be used for handling slash commands
+     * @param commandManager the {@link CommandHandler} to be used for handling slash commands
      */
-    public OnSlashCommands(CommandManager commandManager) {
+    public OnSlashCommands(CommandHandler commandManager) {
         this.commandManager = commandManager;
     }
 
@@ -30,6 +30,6 @@ public class OnSlashCommands extends ListenerAdapter {
      */
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        commandManager.handle(event);
+        commandManager.handleCommand(event);
     }
 }

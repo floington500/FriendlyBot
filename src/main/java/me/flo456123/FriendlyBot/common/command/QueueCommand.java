@@ -2,10 +2,10 @@ package me.flo456123.FriendlyBot.common.command;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import me.flo456123.FriendlyBot.jda.commands.CommandContext;
 import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +24,13 @@ public class QueueCommand extends VoiceAction {
      * @param ctx The CommandContext of the command event.
      */
     @Override
-    public void handle(CommandContext ctx) {
+    public void handle(SlashCommandInteractionEvent ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
         queue = musicManager.getScheduler().getQueue();
 
         // check if queue is empty
         if (queue.isEmpty()) {
-            ctx.event().reply("The queue is currently empty!").setEphemeral(true).queue();
+            ctx.reply("The queue is currently empty!").setEphemeral(true).queue();
             return;
         }
 
@@ -46,7 +46,7 @@ public class QueueCommand extends VoiceAction {
      * @param ctx The CommandContext of the command event.
      */
     @Override
-    protected void handleVoice(CommandContext ctx) {
+    protected void handleVoice(SlashCommandInteractionEvent ctx) {
         final int track_count = Math.min(queue.size(), 5); // limiting the songs displayed to 5
         final List<AudioTrack> trackList = new ArrayList<>(queue);
 
@@ -74,7 +74,7 @@ public class QueueCommand extends VoiceAction {
         }
 
         // send the queue message to the user
-        ctx.event().reply(message.toString()).setEphemeral(true).queue();
+        ctx.reply(message.toString()).setEphemeral(true).queue();
     }
 
     /**

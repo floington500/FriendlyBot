@@ -7,8 +7,8 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import me.flo456123.FriendlyBot.jda.commands.CommandContext;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +41,8 @@ public class PlayerManager {
      * @param ctx the command context for the event
      * @param trackUrl the URL string of the audio track to be played
      */
-    public void loadAndPlay(CommandContext ctx, String trackUrl) {
-        final GuildMusicManager musicManager = getMusicManager(ctx.getGuild());
+    public void loadAndPlay(SlashCommandInteractionEvent ctx, String trackUrl) {
+        final GuildMusicManager musicManager = this.getMusicManager(ctx.getGuild());
 
         // load the track from the specified URL and handle the result
         audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
@@ -62,7 +62,7 @@ public class PlayerManager {
                         audioTrack.getInfo().author +
                         '`';
 
-                ctx.event().reply(message).queue();
+                ctx.reply(message).queue();
             }
 
             /**
@@ -82,7 +82,7 @@ public class PlayerManager {
                         audioTrack.getInfo().author +
                         '`';
 
-                ctx.event().reply(message).queue();
+                ctx.reply(message).queue();
             }
 
             /**
@@ -90,7 +90,7 @@ public class PlayerManager {
              */
             @Override
             public void noMatches() {
-                ctx.event().reply("No matches were found!").setEphemeral(true).queue();
+                ctx.reply("No matches were found!").setEphemeral(true).queue();
             }
 
             /**
@@ -100,7 +100,7 @@ public class PlayerManager {
              */
             @Override
             public void loadFailed(FriendlyException e) {
-                ctx.event().reply("Failed to load query").setEphemeral(true).queue();
+                ctx.reply("Failed to load query").setEphemeral(true).queue();
             }
         });
     }
@@ -134,5 +134,4 @@ public class PlayerManager {
 
         return INSTANCE;
     }
-
 }
