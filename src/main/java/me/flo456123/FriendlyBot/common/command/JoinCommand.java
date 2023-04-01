@@ -45,6 +45,11 @@ public class JoinCommand extends VoiceAction {
             return;
         }
 
+        final int maxMemberSize = memberVoiceState.getChannel().getUserLimit();
+        if (maxMemberSize != 0 && memberVoiceState.getChannel().getMembers().size() > maxMemberSize) {
+            return;
+        }
+
         audioManager = ctx.getGuild().getAudioManager();
         memberChannel = Objects.requireNonNull(memberVoiceState.getChannel()).asVoiceChannel();
 

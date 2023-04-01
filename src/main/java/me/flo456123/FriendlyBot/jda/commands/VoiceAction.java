@@ -19,17 +19,16 @@ public abstract class VoiceAction implements ICommand {
      */
     public void checkChannel(SlashCommandInteractionEvent ctx) {
         final Member self = ctx.getGuild().getSelfMember();
+        final Member user = ctx.getMember();
+
         final GuildVoiceState selfVoiceState = self.getVoiceState();
+        final GuildVoiceState memberVoiceState = user.getVoiceState();
 
         // check if the bot isn't in a voice channel
         if (!selfVoiceState.inAudioChannel()) {
-            // Run the join command, and have the bot join the channel.
             JoinCommand runCmd = new JoinCommand();
             runCmd.handle(ctx);
         }
-
-        final Member user = ctx.getMember();
-        final GuildVoiceState memberVoiceState = user.getVoiceState();
 
         // check to see if the user isn't in a voice channel
         if (!memberVoiceState.inAudioChannel()) {
@@ -60,7 +59,7 @@ public abstract class VoiceAction implements ICommand {
      * Implementation-specific logic for the command that should be executed.
      *
      * @param ctx the CommandContext of the command event.
-    */
+     */
     protected abstract void handleVoice(SlashCommandInteractionEvent ctx);
 
 }
