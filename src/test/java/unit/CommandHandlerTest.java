@@ -7,7 +7,10 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import unit.mock.*;
+import unit.mock.MockJDA;
+import unit.mock.MockSlashCommandInteraction;
+import unit.mock.MockSlashCommandInteractionEvent;
+import unit.mock.TestCommand;
 
 public class CommandHandlerTest {
 

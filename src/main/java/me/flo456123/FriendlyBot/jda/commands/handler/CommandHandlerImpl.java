@@ -6,13 +6,15 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CommandHandlerImpl implements CommandHandler {
-    private List<StoredCommandData> commandList = new ArrayList<>();
-    private JDA jda;
+    private final List<StoredCommandData> commandList = new ArrayList<>();
+    private final JDA jda;
 
     public CommandHandlerImpl(JDA jda) {
         this.jda = jda;
@@ -40,7 +42,7 @@ public class CommandHandlerImpl implements CommandHandler {
     public void handleCommand(SlashCommandInteractionEvent event) {
         Optional<ICommand> optionalCommand = getCommand(event.getName());
 
-        if (optionalCommand.isEmpty()){
+        if (optionalCommand.isEmpty()) {
             event.reply(DefaultReplyMessages.ERROR_COMMAND_DOESNT_EXIST).queue();
             return;
         }

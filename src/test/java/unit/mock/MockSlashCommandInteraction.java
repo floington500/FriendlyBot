@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MockSlashCommandInteraction implements SlashCommandInteraction {
     MockReplyCallbackAction lastReplyCallbackAction = null;
-    private ICommand command;
+    private final ICommand command;
 
     public MockSlashCommandInteraction(ICommand command) {
         this.command = command;
@@ -64,8 +64,8 @@ public class MockSlashCommandInteraction implements SlashCommandInteraction {
     }
 
     @Override
-    public GuildMessageChannelUnion getGuildChannel() {
-        return SlashCommandInteraction.super.getGuildChannel();
+    public @NotNull GuildMessageChannelUnion getGuildChannel() {
+        throw new RuntimeException("Method does not exist!");
     }
 
     @Override

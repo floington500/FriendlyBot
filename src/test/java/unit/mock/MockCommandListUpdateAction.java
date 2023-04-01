@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 
 public class MockCommandListUpdateAction implements CommandListUpdateAction {
-    private JDA jda;
+    private final JDA jda;
 
     public MockCommandListUpdateAction(JDA jda) {
         this.jda = jda;
@@ -37,17 +37,14 @@ public class MockCommandListUpdateAction implements CommandListUpdateAction {
 
     @Override
     public void queue() {
-        return;
     }
 
     @Override
     public void queue(Consumer<? super List<Command>> success) {
-        return;
     }
 
     @Override
     public void queue(Consumer<? super List<Command>> consumer, Consumer<? super Throwable> consumer1) {
-        return;
     }
 
     @Override

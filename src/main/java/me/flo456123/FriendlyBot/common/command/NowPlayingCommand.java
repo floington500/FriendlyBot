@@ -8,8 +8,17 @@ import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
+/**
+ * Responsible for displaying information about the currently playing song to the user.
+ */
 public class NowPlayingCommand extends VoiceAction {
 
+    /**
+     * Displays information about the currently playing song to the user. If there is no
+     * track playing, a message will be sent to the user indicating this.
+     *
+     * @param ctx The CommandContext of the command event.
+     */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
@@ -31,5 +40,4 @@ public class NowPlayingCommand extends VoiceAction {
     public String getName() {
         return "nowplaying";
     }
-
 }
