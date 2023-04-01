@@ -27,7 +27,7 @@ public class OnGuildVoiceUpdate extends ListenerAdapter {
         }
 
         // Check if people are still in the voice channel
-        if (self.getVoiceState().getChannel().getMembers().size() > 1) {
+        if (self.getVoiceState().getChannel().asVoiceChannel().getMembers().size() > 1) {
             return;
         }
 
