@@ -1,4 +1,4 @@
-package unit.mock;
+package unit.mock.jda;
 
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
@@ -26,6 +26,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.utils.cache.CacheView;
 import net.dv8tion.jda.api.utils.cache.SnowflakeCacheView;
 import okhttp3.OkHttpClient;
+import unit.mock.jda.MockCommandListUpdateAction;
 
 import java.util.Collection;
 import java.util.EnumSet;

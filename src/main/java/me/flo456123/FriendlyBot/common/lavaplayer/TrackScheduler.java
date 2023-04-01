@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
-    private boolean looping = false;
+    private int looping = 0; // 0 = off, 1 = loop track, 2 = loop queue.
 
     /**
      * Constructs a new TrackScheduler for the given AudioPlayer.
@@ -29,14 +29,12 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     /**
-     * Adds an audio track to the queue. If the player is not currently playing anything, the track
-     * will be immediately played. Otherwise, it will be added to the queue to be played later.
+     * Adds an audio track to the queue.
      *
      * @param track the audio track to add to the queue.
      */
     public void queue(AudioTrack track) {
-        if (!player.startTrack(track, true))
-            queue.offer(track);
+        queue.offer(track);
     }
 
     /**
@@ -63,7 +61,15 @@ public class TrackScheduler extends AudioEventAdapter {
      * @return true if the player is currently looping, false otherwise.
      */
     public boolean isLooping() {
-        return looping;
+        return looping == 1;
+    }
+
+    /**
+     * Loops the current songs in the queue.
+     * @return
+     */
+    public boolean isLoopingQueue() {
+        return looping == 2;
     }
 
     /**
@@ -72,7 +78,34 @@ public class TrackScheduler extends AudioEventAdapter {
      * @param isLooping whether the player should loop the current track.
      */
     public void setLooping(boolean isLooping) {
-        looping = isLooping;
+        if (isLoopingQueue()) {
+            return;
+        }
+
+        if (isLooping) {
+            looping = 1;
+            return;
+        }
+
+        looping = 0;
+    }
+
+    /**
+     * Sets whether the player should loop the queue.
+     *
+     * @param isLoopingQueue whether the player should loop the current track.
+     */
+    public void setLoopingQueue(boolean isLoopingQueue) {
+        if (isLooping()) {
+            return;
+        }
+
+        if (isLoopingQueue) {
+            looping = 2;
+            return;
+        }
+
+        looping = 0;
     }
 
     /**
@@ -86,16 +119,20 @@ public class TrackScheduler extends AudioEventAdapter {
     /**
      * Called automatically when a track has finished playing.
      *
-     * @param player the AudioPlayer instance associated with this TrackScheduler.
-     * @param track the track that has finished playing.
+     * @param player    the AudioPlayer instance associated with this TrackScheduler.
+     * @param track     the track that has finished playing.
      * @param endReason the reason the track stopped playing.
      */
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if (endReason.mayStartNext) {
-            if (looping) {
+            if (isLooping()) {
                 this.getPlayer().startTrack(track.makeClone(), false);
                 return;
+            }
+
+            if (isLoopingQueue()) {
+                this.queue.add(track.makeClone());
             }
 
             if (endReason.mayStartNext) {

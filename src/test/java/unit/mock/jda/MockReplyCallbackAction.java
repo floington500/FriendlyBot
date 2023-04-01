@@ -1,4 +1,4 @@
-package unit.mock;
+package unit.mock.jda;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.IMentionable;
@@ -19,7 +19,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 public class MockReplyCallbackAction implements ReplyCallbackAction {
-    String lastMessage;
+    public String lastMessage;
 
     @Override
     public ReplyCallbackAction closeResources() {
