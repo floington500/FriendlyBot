@@ -63,6 +63,7 @@ public class BotStartup {
         commandHandler.addCommand(Commands.slash("nowplaying", "gives you info on the current song that is playing"), new NowPlayingCommand());
         commandHandler.addCommand(Commands.slash("queue", "shows the songs in queue"), new QueueCommand());
         commandHandler.addCommand(Commands.slash("loop", "loops the current song"), new LoopCommand());
+        commandHandler.addCommand(Commands.slash("loopqueue", "loops the queue"), new LoopQueueCommand());
         commandHandler.addCommand(Commands.slash("play", "makes the bot play a song")
                 .addOption(OptionType.STRING, "query", "enter a link or search term for the bot to find your song with"), new PlayCommand());
 

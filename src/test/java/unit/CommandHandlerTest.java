@@ -1,5 +1,9 @@
 package unit;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import me.flo456123.FriendlyBot.common.command.LoopQueueCommand;
+import me.flo456123.FriendlyBot.common.lavaplayer.TrackScheduler;
 import me.flo456123.FriendlyBot.jda.commands.handler.CommandHandlerImpl;
 import me.flo456123.FriendlyBot.jda.config.DefaultReplyMessages;
 import net.dv8tion.jda.api.JDA;
@@ -7,10 +11,8 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import unit.mock.MockJDA;
-import unit.mock.MockSlashCommandInteraction;
-import unit.mock.MockSlashCommandInteractionEvent;
-import unit.mock.TestCommand;
+import unit.mock.jda.*;
+import unit.mock.common.TestCommand;
 
 public class CommandHandlerTest {
 

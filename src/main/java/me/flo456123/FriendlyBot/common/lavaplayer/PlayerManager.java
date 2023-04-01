@@ -38,7 +38,7 @@ public class PlayerManager {
     /**
      * Loads and plays an audio track for the specified guild.
      *
-     * @param ctx the command context for the event
+     * @param ctx      the command context for the event
      * @param trackUrl the URL string of the audio track to be played
      */
     public void loadAndPlay(SlashCommandInteractionEvent ctx, String trackUrl) {
@@ -54,7 +54,11 @@ public class PlayerManager {
              */
             @Override
             public void trackLoaded(AudioTrack audioTrack) {
-                musicManager.getScheduler().queue(audioTrack);
+                boolean wasStarted = musicManager.getScheduler().getPlayer().startTrack(audioTrack, false);
+
+                if (!wasStarted) {
+                    musicManager.getScheduler().queue(audioTrack);
+                }
 
                 String message = "Adding to queue: `" +
                         audioTrack.getInfo().title +
