@@ -28,6 +28,7 @@ public abstract class VoiceAction implements ICommand {
         if (!selfVoiceState.inAudioChannel()) {
             JoinCommand runCmd = new JoinCommand();
             runCmd.handle(ctx);
+            return;
         }
 
         // check to see if the user isn't in a voice channel
@@ -39,8 +40,10 @@ public abstract class VoiceAction implements ICommand {
         // check if bot and user are in the same voice channel
         if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
             ctx.reply("You need to be in the same channel as me to use this command!").setEphemeral(true).queue();
+            return;
         }
 
+        handleVoice(ctx);
     }
 
     /**
@@ -52,7 +55,6 @@ public abstract class VoiceAction implements ICommand {
     @Override
     public void handle(SlashCommandInteractionEvent ctx) {
         checkChannel(ctx);
-        handleVoice(ctx);
     }
 
     /**
