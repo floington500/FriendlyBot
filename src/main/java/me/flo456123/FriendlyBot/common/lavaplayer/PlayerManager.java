@@ -54,18 +54,9 @@ public class PlayerManager {
              */
             @Override
             public void trackLoaded(AudioTrack audioTrack) {
-                boolean wasStarted = musicManager.getScheduler().getPlayer().startTrack(audioTrack, false);
+                loadSong(audioTrack);
 
-                if (!wasStarted) {
-                    musicManager.getScheduler().queue(audioTrack);
-                }
-
-                String message = "Adding to queue: `" +
-                        audioTrack.getInfo().title +
-                        "` by `" +
-                        audioTrack.getInfo().author +
-                        '`';
-
+                String message = "Adding to queue: `" + audioTrack.getInfo().title + "` by `" + audioTrack.getInfo().author + '`';
                 ctx.reply(message).queue();
             }
 
@@ -77,16 +68,42 @@ public class PlayerManager {
              */
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
-                final AudioTrack audioTrack = audioPlaylist.getTracks().get(0);
-                musicManager.getScheduler().queue(audioTrack);
+                TrackScheduler trackScheduler = musicManager.getScheduler();
 
-                String message = "Adding to queue: `" +
-                        audioTrack.getInfo().title +
-                        "` by `" +
-                        audioTrack.getInfo().author +
-                        '`';
+                if (audioPlaylist.isSearchResult()){
+                    AudioTrack audioTrack = audioPlaylist.getTracks().get(0);
+                    loadSong(audioTrack);
 
+                    String message = "Adding to queue: `" + audioTrack.getInfo().title + "` by `" + audioTrack.getInfo().author + '`';
+                    ctx.reply(message).queue();
+                    return;
+                }
+
+                for (AudioTrack track: audioPlaylist.getTracks()) {
+                    loadSong(track);
+                }
+
+                String message = "Adding to `playlist` to queue!";
                 ctx.reply(message).queue();
+                return;
+            }
+
+            /**
+             * Load the song in into the player
+             * @param audio The audio track to load
+             * @return true if the song is the first in the queue, and is now playing.
+             */
+            private boolean loadSong(AudioTrack audio) {
+                TrackScheduler trackScheduler = musicManager.getScheduler();
+
+                trackScheduler.queue(audio);
+
+                if (trackScheduler.getPlayer().getPlayingTrack() == null) {
+                    trackScheduler.nextTrack();
+                    return true;
+                }
+
+                return false;
             }
 
             /**

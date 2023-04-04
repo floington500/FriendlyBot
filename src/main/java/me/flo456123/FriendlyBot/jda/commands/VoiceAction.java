@@ -24,23 +24,16 @@ public abstract class VoiceAction implements ICommand {
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         final GuildVoiceState memberVoiceState = user.getVoiceState();
 
-        // check if the bot isn't in a voice channel
-        if (!selfVoiceState.inAudioChannel()) {
-            JoinCommand runCmd = new JoinCommand();
-            runCmd.handle(ctx);
-            return;
-        }
-
         // check to see if the user isn't in a voice channel
         if (!memberVoiceState.inAudioChannel()) {
             ctx.reply("You need to be in a channel in order to use this command!").setEphemeral(true).queue();
             return;
         }
 
-        // check if bot and user are in the same voice channel
-        if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
-            ctx.reply("You need to be in the same channel as me to use this command!").setEphemeral(true).queue();
-            return;
+        // check if the bot isn't in a voice channel
+        if (!selfVoiceState.inAudioChannel()) {
+            JoinCommand runCmd = new JoinCommand();
+            runCmd.handle(ctx);
         }
 
         handleVoice(ctx);

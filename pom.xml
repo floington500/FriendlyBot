@@ -96,7 +96,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>me.flo456123.FriendlyBot.BotStartup</mainClass>
+                                    <mainClass>me.flo456123.FriendlyBot.Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

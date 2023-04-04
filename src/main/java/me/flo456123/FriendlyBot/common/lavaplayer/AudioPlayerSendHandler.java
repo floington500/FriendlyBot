@@ -2,6 +2,8 @@ package me.flo456123.FriendlyBot.common.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
+import me.flo456123.FriendlyBot.jda.config.Config;
+import me.flo456123.FriendlyBot.jda.config.Environment;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.ByteBuffer;
@@ -21,7 +23,7 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
      */
     public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
-        buffer = ByteBuffer.allocate(12000); // can be adjusted to optimize performance
+        buffer = ByteBuffer.allocate(Config.getBufferSize()); // can be adjusted to optimize performance
         audioFrame = new MutableAudioFrame();
         audioFrame.setBuffer(buffer);
     }

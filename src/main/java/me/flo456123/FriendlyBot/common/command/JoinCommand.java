@@ -39,7 +39,6 @@ public class JoinCommand extends VoiceAction {
         final GuildVoiceState memberVoiceState = client.getVoiceState();
 
         // check to see if the user isn't in a voice channel
-        assert memberVoiceState != null;
         if (!memberVoiceState.inAudioChannel()) {
             ctx.reply("You need to be in a voice channel to use this command!").setEphemeral(true).queue();
             return;
@@ -47,6 +46,7 @@ public class JoinCommand extends VoiceAction {
 
         final int maxMemberSize = memberVoiceState.getChannel().getUserLimit();
         if (maxMemberSize != 0 && memberVoiceState.getChannel().getMembers().size() > maxMemberSize) {
+            ctx.reply("Too many users are in the channel!!").setEphemeral(true).queue();
             return;
         }
 
@@ -70,7 +70,6 @@ public class JoinCommand extends VoiceAction {
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         audioManager.openAudioConnection(memberChannel);
-        ctx.replyFormat("Successfully joined `%s`", memberChannel.getName()).queue();
     }
 
     @Override

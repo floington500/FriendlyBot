@@ -4,7 +4,6 @@ import me.flo456123.FriendlyBot.common.command.*;
 import me.flo456123.FriendlyBot.common.listeners.OnGuildVoiceUpdate;
 import me.flo456123.FriendlyBot.common.listeners.OnSlashCommands;
 import me.flo456123.FriendlyBot.jda.commands.handler.CommandHandlerImpl;
-import me.flo456123.FriendlyBot.jda.config.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -19,27 +18,27 @@ import java.util.EnumSet;
  * Create a new bot instance and prepare and start it up.
  */
 @SuppressWarnings("unused")
-public class BotStartup {
+public class DiscordBot {
+    private String token;
+    private JDA jda;
 
-    public static void main(String[] args) {
-        try {
-            BotStartup startup = new BotStartup();
-        } catch (LoginException | InterruptedException e) {
-            System.out.println("Failed to login!");
-        }
+    public DiscordBot(String token) throws InterruptedException {
+        this.jda = createInstance(token);
 
+        setup();
     }
 
     /**
-     * Constructs a new {@link BotStartup} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
+     * Constructs a new {@link DiscordBot} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
      * Also sets up the {@link CommandHandlerImpl}, registers the bots slash commands, and adds the bots listeners.
      *
-     * @throws LoginException if the login credentials are invalid
+     * @throws LoginException       if the login credentials are invalid
      * @throws InterruptedException if the JDA instance was interrupted while waiting to connect
      */
-    public BotStartup() throws LoginException, InterruptedException {
-        JDA jda = JDABuilder.createDefault(
-                        Config.get("TOKEN"),
+
+    private JDA createInstance(String token) throws InterruptedException {
+        return JDABuilder.createDefault(
+                        token,
                         GatewayIntent.GUILD_MEMBERS,
                         GatewayIntent.GUILD_MESSAGES,
                         GatewayIntent.GUILD_VOICE_STATES)
@@ -53,7 +52,9 @@ public class BotStartup {
                 .enableCache(CacheFlag.VOICE_STATE)
                 .build()
                 .awaitReady();
+    }
 
+    private void setup() {
         CommandHandlerImpl commandHandler = new CommandHandlerImpl(jda);
 
         commandHandler.addCommand(Commands.slash("join", "makes the bot join your voice channel"), new JoinCommand());
