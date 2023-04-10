@@ -18,24 +18,23 @@ import java.util.EnumSet;
  * Create a new bot instance and prepare and start it up.
  */
 @SuppressWarnings("unused")
-public class DiscordBot {
+public class FriendlyBot {
     private String token;
     private JDA jda;
 
-    public DiscordBot(String token) throws InterruptedException {
+    public FriendlyBot(String token) throws InterruptedException {
         this.jda = createInstance(token);
 
         setup();
     }
 
     /**
-     * Constructs a new {@link DiscordBot} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
+     * Constructs a new {@link FriendlyBot} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
      * Also sets up the {@link CommandHandlerImpl}, registers the bots slash commands, and adds the bots listeners.
      *
      * @throws LoginException       if the login credentials are invalid
      * @throws InterruptedException if the JDA instance was interrupted while waiting to connect
      */
-
     private JDA createInstance(String token) throws InterruptedException {
         return JDABuilder.createDefault(
                         token,
