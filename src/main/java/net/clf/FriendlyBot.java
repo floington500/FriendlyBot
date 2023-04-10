@@ -65,9 +65,9 @@ public class FriendlyBot {
         commandHandler.addCommand(Commands.slash("loop", "loops the current song"), new LoopCommand());
         commandHandler.addCommand(Commands.slash("loopqueue", "loops the queue"), new LoopQueueCommand());
         commandHandler.addCommand(Commands.slash("play", "makes the bot play a song")
-                .addOption(OptionType.STRING, "query", "enter a link or search term for the bot to find your song with"), new PlayCommand());
+                .addOption(OptionType.STRING, "query", "enter a link or search term for the bot to find your song with", true), new PlayCommand());
         commandHandler.addCommand(Commands.slash("volume", "control how loud the music that the bot is playing")
-                .addOption(OptionType.INTEGER, "amount", "the new volume for the player to play at"), new VolumeCommand());
+                .addOption(OptionType.INTEGER, "amount", "the new volume for the player to play at", true), new VolumeCommand());
         commandHandler.addCommand(Commands.slash("pause", "used for both pausing and resuming a song"), new PauseCommand());
 
         commandHandler.updateCommands();

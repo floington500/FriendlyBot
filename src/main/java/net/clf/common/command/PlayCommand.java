@@ -21,12 +21,6 @@ public class PlayCommand extends VoiceAction {
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         String link = ctx.getOption("query").getAsString();
 
-        // check if the query is empty
-        if (link == null) {
-            ctx.reply("Invalid query").setEphemeral(true).queue();
-            return;
-        }
-
         if (!isUrl(link)) {
             // convert the search query to a YouTube search if it is not a URL
             link = "ytsearch:" + link;

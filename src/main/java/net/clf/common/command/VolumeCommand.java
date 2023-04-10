@@ -20,13 +20,7 @@ public class VolumeCommand extends VoiceAction {
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         final Guild guild = ctx.getGuild();
         assert guild != null;
-        final Integer newVolume = ctx.getOption("amount").getAsInt();
-
-        // check if volume field is empty
-        if (newVolume == null) {
-            ctx.reply("Invalid volume").setEphemeral(true).queue();
-            return;
-        }
+        final int newVolume = ctx.getOption("amount").getAsInt();
 
         final GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(guild);
         guildMusicManager.getAudioPlayer().setVolume(newVolume);
