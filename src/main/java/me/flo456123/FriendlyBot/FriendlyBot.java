@@ -20,7 +20,7 @@ import java.util.EnumSet;
 @SuppressWarnings("unused")
 public class FriendlyBot {
     private String token;
-    private JDA jda;
+    private final JDA jda;
 
     public FriendlyBot(String token) throws InterruptedException {
         this.jda = createInstance(token);
@@ -68,6 +68,7 @@ public class FriendlyBot {
                 .addOption(OptionType.STRING, "query", "enter a link or search term for the bot to find your song with"), new PlayCommand());
         commandHandler.addCommand(Commands.slash("volume", "control how loud the music that the bot is playing")
                 .addOption(OptionType.INTEGER, "amount", "the new volume for the player to play at"), new VolumeCommand());
+        commandHandler.addCommand(Commands.slash("pause", "used for both pausing and resuming a song"), new PauseCommand());
 
         commandHandler.updateCommands();
 
