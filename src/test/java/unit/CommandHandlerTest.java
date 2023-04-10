@@ -1,11 +1,7 @@
 package unit;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import me.flo456123.FriendlyBot.common.command.LoopQueueCommand;
-import me.flo456123.FriendlyBot.common.lavaplayer.TrackScheduler;
-import me.flo456123.FriendlyBot.jda.commands.handler.CommandHandlerImpl;
-import me.flo456123.FriendlyBot.jda.config.DefaultReplyMessages;
+import net.clf.jda.commands.handler.CommandHandlerImpl;
+import net.clf.jda.config.DefaultReplyMessages;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;

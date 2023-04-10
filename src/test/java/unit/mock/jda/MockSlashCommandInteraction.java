@@ -1,6 +1,6 @@
 package unit.mock.jda;
 
-import me.flo456123.FriendlyBot.jda.commands.ICommand;
+import net.clf.jda.commands.ICommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

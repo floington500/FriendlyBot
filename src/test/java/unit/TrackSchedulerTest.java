@@ -2,7 +2,7 @@ package unit;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import me.flo456123.FriendlyBot.common.lavaplayer.TrackScheduler;
+import net.clf.common.lavaplayer.TrackScheduler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import unit.mock.jda.MockAudioPlayer;
