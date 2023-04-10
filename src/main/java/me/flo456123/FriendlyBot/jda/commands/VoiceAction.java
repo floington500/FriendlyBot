@@ -1,7 +1,6 @@
 package me.flo456123.FriendlyBot.jda.commands;
 
 import me.flo456123.FriendlyBot.common.command.JoinCommand;
-import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -21,17 +20,14 @@ public abstract class VoiceAction implements ICommand {
         final Member self = ctx.getGuild().getSelfMember();
         final Member user = ctx.getMember();
 
-        final GuildVoiceState selfVoiceState = self.getVoiceState();
-        final GuildVoiceState memberVoiceState = user.getVoiceState();
-
         // check to see if the user isn't in a voice channel
-        if (!memberVoiceState.inAudioChannel()) {
+        if (!user.getVoiceState().inAudioChannel()) {
             ctx.reply("You need to be in a channel in order to use this command!").setEphemeral(true).queue();
             return;
         }
 
         // check if the bot isn't in a voice channel
-        if (!selfVoiceState.inAudioChannel()) {
+        if (!self.getVoiceState().inAudioChannel()) {
             JoinCommand runCmd = new JoinCommand();
             runCmd.handle(ctx);
         }
