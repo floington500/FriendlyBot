@@ -13,27 +13,26 @@ public class Main {
                 String value = args[x + 1];
 
                 switch (args[x].toLowerCase()) {
-                    case "-token":
+                    case "-token" -> {
                         System.out.println("[Setup] Using args token!");
                         token = value;
-                        continue;
-
-                    case "-buffersize":
+                    }
+                    case "-buffersize" -> {
                         int size = Integer.parseInt(value);
                         Config.setBufferSize(size);
                         System.out.println("[Setup] Using args buffer size of " + size + "!");
-                        continue;
-                }
-
-                if (token == null) {
-                    String env = Environment.get("TOKEN");
-
-                    if (env != null) {
-                        token = env;
-                    } else {
-                        System.out.println("[Setup] Failed to locate token");
-                        return;
                     }
+                }
+            }
+
+            if (token == null) {
+                String env = Environment.get("TOKEN");
+
+                if (env != null) {
+                    token = env;
+                } else {
+                    System.out.println("[Setup] Failed to locate token");
+                    return;
                 }
             }
 
