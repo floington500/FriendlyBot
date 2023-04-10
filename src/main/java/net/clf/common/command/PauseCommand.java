@@ -24,7 +24,7 @@ public class PauseCommand extends VoiceAction {
         final boolean newState = !player.isPaused();
 
         player.setPaused(newState);
-        ctx.replyFormat("Song has been **%sd**", newState ? "paused" : "resumed").queue();
+        ctx.replyFormat("Song has been **%s**", newState ? "paused" : "resumed").queue();
     }
 
     @Override
