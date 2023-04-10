@@ -5,6 +5,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.util.ArrayList;
@@ -25,7 +26,9 @@ public class QueueCommand extends VoiceAction {
      */
     @Override
     public void handle(SlashCommandInteractionEvent ctx) {
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        Guild guild = ctx.getGuild();
+        assert guild != null;
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
         queue = musicManager.getScheduler().getQueue();
 
         // check if queue is empty
@@ -35,7 +38,7 @@ public class QueueCommand extends VoiceAction {
         }
 
         // check if the bot and user are in the same voice channel
-        super.checkChannel(ctx);
+        checkChannel(ctx);
 
         handleVoice(ctx);
     }

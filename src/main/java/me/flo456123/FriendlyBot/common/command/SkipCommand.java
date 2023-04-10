@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
@@ -18,7 +19,9 @@ public class SkipCommand extends VoiceAction {
      */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        Guild guild = ctx.getGuild();
+        assert guild != null;
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
         final AudioPlayer audioPlayer = musicManager.getAudioPlayer();
 
         // check if there is a track playing

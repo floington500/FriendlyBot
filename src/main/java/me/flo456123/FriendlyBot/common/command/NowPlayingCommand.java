@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.flo456123.FriendlyBot.common.lavaplayer.GuildMusicManager;
 import me.flo456123.FriendlyBot.common.lavaplayer.PlayerManager;
 import me.flo456123.FriendlyBot.jda.commands.VoiceAction;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
@@ -21,6 +22,8 @@ public class NowPlayingCommand extends VoiceAction {
      */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
+        final Guild guild = ctx.getGuild();
+        assert guild != null;
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
         final AudioPlayer audioPlayer = musicManager.getAudioPlayer();
         final AudioTrack track = audioPlayer.getPlayingTrack();

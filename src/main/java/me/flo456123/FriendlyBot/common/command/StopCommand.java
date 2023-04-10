@@ -18,6 +18,7 @@ public class StopCommand extends VoiceAction {
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         Guild guild = ctx.getGuild();
+        assert guild != null;
         PlayerManager.getInstance().getMusicManager(guild).stopPlayer();
 
         ctx.reply("The player has been stopped and the track has been cleared").queue();

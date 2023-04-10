@@ -19,6 +19,7 @@ public class LeaveCommand extends VoiceAction {
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         final Guild guild = ctx.getGuild();
+        assert guild != null;
         PlayerManager.getInstance().getMusicManager(guild).stopPlayer();
 
         final AudioManager audioManager = guild.getAudioManager();
