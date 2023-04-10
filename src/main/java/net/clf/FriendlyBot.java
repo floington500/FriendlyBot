@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
-import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
 
 /**
@@ -32,7 +31,6 @@ public class FriendlyBot {
      * Constructs a new {@link FriendlyBot} instance and initializes the {@link JDA} instance with the specified token and {@link GatewayIntent}.
      * Also sets up the {@link CommandHandlerImpl}, registers the bots slash commands, and adds the bots listeners.
      *
-     * @throws LoginException       if the login credentials are invalid
      * @throws InterruptedException if the JDA instance was interrupted while waiting to connect
      */
     private JDA createInstance(String token) throws InterruptedException {
