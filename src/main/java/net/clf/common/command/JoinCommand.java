@@ -70,6 +70,7 @@ public class JoinCommand extends VoiceAction {
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         audioManager.openAudioConnection(memberChannel);
+        ctx.replyFormat("Joined channel **%s**", ctx.getChannel().getName()).queue();
     }
 
     @Override
