@@ -16,6 +16,15 @@ public class JoinCommand extends VoiceAction {
     private AudioManager audioManager;
     private VoiceChannel memberChannel;
 
+    boolean isSilent = false;
+
+    public JoinCommand() {
+    }
+
+    public JoinCommand(boolean isSilent) {
+        this.isSilent = isSilent;
+    }
+
     /**
      * Handles the execution of the "join" command, which makes the bot join the user's
      * voice channel after checking the user's and bots voice states and permissions.
@@ -70,6 +79,11 @@ public class JoinCommand extends VoiceAction {
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
         audioManager.openAudioConnection(memberChannel);
+
+        if (isSilent){
+            return;
+        }
+
         ctx.replyFormat("Joined channel **%s**", ctx.getChannel().getName()).queue();
     }
 
