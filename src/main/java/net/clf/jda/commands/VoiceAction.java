@@ -1,5 +1,8 @@
 package net.clf.jda.commands;
 
+import net.clf.common.command.JoinCommand;
+import net.clf.jda.commands.ICommand;
+import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -15,29 +18,26 @@ public abstract class VoiceAction implements ICommand {
      * @param ctx the {@link SlashCommandInteractionEvent}.
      * @return true if the user and bot are in the same channel, false otherwise.
      */
-    public boolean checkChannel(SlashCommandInteractionEvent ctx) {
+    public void checkChannel(SlashCommandInteractionEvent ctx) {
         final Member self = ctx.getGuild().getSelfMember();
         final Member user = ctx.getMember();
 
+        final GuildVoiceState selfVoiceState = self.getVoiceState();
+        final GuildVoiceState memberVoiceState = user.getVoiceState();
+
         // check to see if the user isn't in a voice channel
-        if (!user.getVoiceState().inAudioChannel()) {
-            ctx.reply("You need to be in a channel to use this command!").setEphemeral(true).queue();
-            return false;
+        if (!memberVoiceState.inAudioChannel()) {
+            ctx.reply("You need to be in a channel in order to use this command!").setEphemeral(true).queue();
+            return;
         }
 
-        // check if bot is in channel
-        if (!self.getVoiceState().inAudioChannel()) {
-            ctx.reply("I need to be in a voice channel to use this command!").setEphemeral(true).queue();
-            return false;
+        // check if the bot isn't in a voice channel
+        if (!selfVoiceState.inAudioChannel()) {
+            JoinCommand runCmd = new JoinCommand(true);
+            runCmd.handle(ctx);
         }
 
-        // check if bot and user are in same channel
-        if (!self.getVoiceState().getChannel().equals(user.getVoiceState().getChannel())) {
-            ctx.reply("You need to be in the same channel as me to use this command!").setEphemeral(true).queue();
-            return false;
-        }
-
-        return true;
+        handleVoice(ctx);
     }
 
     /**
@@ -48,11 +48,7 @@ public abstract class VoiceAction implements ICommand {
      */
     @Override
     public void handle(SlashCommandInteractionEvent ctx) {
-        if (!checkChannel(ctx)) {
-            return;
-        }
-
-        handleVoice(ctx);
+        checkChannel(ctx);
     }
 
     /**
@@ -61,4 +57,5 @@ public abstract class VoiceAction implements ICommand {
      * @param ctx the CommandContext of the command event.
      */
     protected abstract void handleVoice(SlashCommandInteractionEvent ctx);
+
 }
