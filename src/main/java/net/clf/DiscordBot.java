@@ -58,10 +58,10 @@ public class DiscordBot {
         commandHandler.addCommand(Commands.slash("leave", "makes the bot leave your voice channel"), new LeaveCommand());
         commandHandler.addCommand(Commands.slash("skip", "skips the current song that the bot is playing"), new SkipCommand());
         commandHandler.addCommand(Commands.slash("stop", "stops the current song and clears the queue"), new StopCommand());
-        commandHandler.addCommand(Commands.slash("nowplaying", "gives you info on the current song that is playing"), new NowPlayingCommand());
+        commandHandler.addCommand(Commands.slash("now-playing", "gives you info on the current song that is playing"), new NowPlayingCommand());
         commandHandler.addCommand(Commands.slash("queue", "shows the songs in queue"), new QueueCommand());
         commandHandler.addCommand(Commands.slash("loop", "loops the current song"), new LoopCommand());
-        commandHandler.addCommand(Commands.slash("loopqueue", "loops the queue"), new LoopQueueCommand());
+        commandHandler.addCommand(Commands.slash("loop-queue", "loops the queue"), new LoopQueueCommand());
         commandHandler.addCommand(Commands.slash("play", "makes the bot play a song")
                 .addOption(OptionType.STRING, "query", "enter a link or search term for the bot to find your song with", true), new PlayCommand());
         commandHandler.addCommand(Commands.slash("volume", "control how loud the music that the bot is playing")
