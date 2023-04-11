@@ -17,32 +17,6 @@ import java.util.concurrent.TimeUnit;
  * Responsible for displaying the current music queue to the user.
  */
 public class QueueCommand extends VoiceAction {
-    private BlockingQueue<AudioTrack> queue;
-
-    /**
-     * Executes the "queue" command, which displays the current music queue to the user.
-     *
-     * @param ctx The CommandContext of the command event.
-     */
-    @Override
-    public void handle(SlashCommandInteractionEvent ctx) {
-        Guild guild = ctx.getGuild();
-        assert guild != null;
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
-        queue = musicManager.getScheduler().getQueue();
-
-        // check if queue is empty
-        if (queue.isEmpty()) {
-            ctx.reply("The queue is currently empty!").setEphemeral(true).queue();
-            return;
-        }
-
-        // check if the bot and user are in the same voice channel
-        checkChannel(ctx);
-
-        handleVoice(ctx);
-    }
-
     /**
      * Displays the current music queue to the user.
      *
@@ -50,6 +24,17 @@ public class QueueCommand extends VoiceAction {
      */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
+        Guild guild = ctx.getGuild();
+        assert guild != null;
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
+        final BlockingQueue<AudioTrack> queue = musicManager.getScheduler().getQueue();
+
+        // check if queue is empty
+        if (queue.isEmpty()) {
+            ctx.reply("The queue is currently empty!").setEphemeral(true).queue();
+            return;
+        }
+
         final int track_count = Math.min(queue.size(), 5); // limiting the songs displayed to 5
         final List<AudioTrack> trackList = new ArrayList<>(queue);
 
