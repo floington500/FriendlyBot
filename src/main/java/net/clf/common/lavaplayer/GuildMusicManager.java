@@ -56,8 +56,9 @@ public class GuildMusicManager {
      * Stops the {@link AudioPlayer} and clears its track queue.
      */
     public void stopPlayer() {
-        getScheduler().setLooping(false);
-        getScheduler().getQueue().clear();
-        getScheduler().getPlayer().stopTrack();
+        audioPlayer.stopTrack();
+        scheduler.getQueue().clear();
+        audioPlayer.setVolume(100);
+        scheduler.setLooping(false);
     }
 }
