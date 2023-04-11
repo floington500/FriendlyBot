@@ -21,17 +21,17 @@ public class OnGuildVoiceUpdate extends ListenerAdapter {
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
         Member self = event.getGuild().getSelfMember();
 
-        // Check if bot is in audio channel
+        // check if bot is in audio channel
         if (!self.getVoiceState().inAudioChannel()) {
             return;
         }
 
-        // Check if people are still in the voice channel
+        // check if people are still in the voice channel
         if (self.getVoiceState().getChannel().asVoiceChannel().getMembers().size() > 1) {
             return;
         }
 
-        // If the bot is alone in the voice channel, stop the player and leave
+        // if the bot is alone in the voice channel, stop the player and leave
         final Guild guild = event.getGuild();
         PlayerManager.getInstance().getMusicManager(guild).stopPlayer();
         guild.getAudioManager().closeAudioConnection();

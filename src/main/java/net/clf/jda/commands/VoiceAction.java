@@ -16,23 +16,29 @@ public abstract class VoiceAction implements ICommand {
      * @param ctx the {@link SlashCommandInteractionEvent}.
      * @return true if the user and bot are in the same channel, false otherwise.
      */
-    public void checkChannel(SlashCommandInteractionEvent ctx) {
+    public boolean checkChannel(SlashCommandInteractionEvent ctx) {
         final Member self = ctx.getGuild().getSelfMember();
         final Member user = ctx.getMember();
 
         // check to see if the user isn't in a voice channel
         if (!user.getVoiceState().inAudioChannel()) {
-            ctx.reply("You need to be in a channel in order to use this command!").setEphemeral(true).queue();
-            return;
+            ctx.reply("You need to be in a channel to use this command!").setEphemeral(true).queue();
+            return false;
         }
 
-        // check if the bot isn't in a voice channel
+        // check if bot is in channel
         if (!self.getVoiceState().inAudioChannel()) {
-            JoinCommand runCmd = new JoinCommand();
-            runCmd.handle(ctx);
+            ctx.reply("I need to be in a voice channel to use this command!").setEphemeral(true).queue();
+            return false;
         }
 
-        handleVoice(ctx);
+        // check if bot and user are in same channel
+        if (!self.getVoiceState().getChannel().equals(user.getVoiceState().getChannel())) {
+            ctx.reply("You need to be in the same channel as me to use this command!").setEphemeral(true).queue();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -43,7 +49,9 @@ public abstract class VoiceAction implements ICommand {
      */
     @Override
     public void handle(SlashCommandInteractionEvent ctx) {
-        checkChannel(ctx);
+        if (checkChannel(ctx)) {
+            handleVoice(ctx);
+        }
     }
 
     /**
@@ -52,5 +60,4 @@ public abstract class VoiceAction implements ICommand {
      * @param ctx the CommandContext of the command event.
      */
     protected abstract void handleVoice(SlashCommandInteractionEvent ctx);
-
 }

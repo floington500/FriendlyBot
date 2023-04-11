@@ -4,7 +4,7 @@ import net.clf.jda.config.Config;
 import net.clf.jda.config.Environment;
 
 public class Main {
-    private static FriendlyBot startup = null;
+    private static DiscordBot startup = null;
     private static String token = null;
 
     public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class Main {
             }
 
             System.out.println("Starting bot...");
-            startup = new FriendlyBot(token);
+            startup = new DiscordBot(token);
         } catch (InterruptedException e) {
             System.out.println("Failed to login!");
         }

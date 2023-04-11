@@ -42,10 +42,6 @@ public class CommandHandlerImpl implements CommandHandler {
     public void handleCommand(SlashCommandInteractionEvent event) {
         Optional<ICommand> optionalCommand = getCommand(event.getName());
 
-        /* TODO - remove anything that handles non existent commands
-            a benefit of using slash commands over prefix commands
-            is that users are only able to use existing commands
-         */
         if (optionalCommand.isEmpty()) {
             event.reply(DefaultReplyMessages.ERROR_COMMAND_DOESNT_EXIST).queue();
             return;
