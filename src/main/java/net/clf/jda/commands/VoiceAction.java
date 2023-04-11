@@ -1,6 +1,5 @@
 package net.clf.jda.commands;
 
-import net.clf.common.command.JoinCommand;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -49,9 +48,11 @@ public abstract class VoiceAction implements ICommand {
      */
     @Override
     public void handle(SlashCommandInteractionEvent ctx) {
-        if (checkChannel(ctx)) {
-            handleVoice(ctx);
+        if (!checkChannel(ctx)) {
+            return;
         }
+
+        handleVoice(ctx);
     }
 
     /**
