@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
- * Responsible for handling the "loopqueue" command, which loops the queue.
+ * Responsible for handling the "loop-queue" command, which loops the queue.
  */
 public class LoopQueueCommand extends VoiceAction {
 
