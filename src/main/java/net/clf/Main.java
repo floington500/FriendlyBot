@@ -2,8 +2,11 @@ package net.clf;
 
 import net.clf.jda.config.Config;
 import net.clf.jda.config.Environment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static DiscordBot startup = null;
     private static String token = null;
 
@@ -14,13 +17,13 @@ public class Main {
 
                 switch (args[x].toLowerCase()) {
                     case "-token" -> {
-                        System.out.println("[Setup] Using args token!");
+                        LOGGER.info("[Setup] Using args token!");
                         token = value;
                     }
                     case "-buffersize" -> {
                         int size = Integer.parseInt(value);
                         Config.setBufferSize(size);
-                        System.out.println("[Setup] Using args buffer size of " + size + "!");
+                        LOGGER.info("[Setup] Using args buffer size of " + size + "!");
                     }
                 }
             }
@@ -31,15 +34,15 @@ public class Main {
                 if (env != null) {
                     token = env;
                 } else {
-                    System.out.println("[Setup] Failed to locate token");
+                    LOGGER.info("[Setup] Failed to locate token");
                     return;
                 }
             }
 
-            System.out.println("Starting bot...");
+            LOGGER.info("Starting bot...");
             startup = new DiscordBot(token);
         } catch (InterruptedException e) {
-            System.out.println("Failed to login!");
+            LOGGER.error("Failed to login!");
         }
     }
 }

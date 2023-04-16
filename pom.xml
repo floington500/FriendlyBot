@@ -39,6 +39,12 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.8</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -66,14 +72,23 @@
             </plugin>
         </plugins>
 
-        <!-- make env file available at compile time -->
         <resources>
+            <!-- make env file available at compile time -->
             <resource>
                 <directory>${PROJECT_DIR}</directory>
+                <filtering>true</filtering>
                 <includes>
                     <include>.env</include>
                 </includes>
+            </resource>
+
+            <!-- make logback file available at compile time -->
+            <resource>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>logback.xml</include>
+                </includes>
             </resource>
         </resources>
     </build>
@@ -90,4 +105,5 @@
             <url>https://m2.dv8tion.net/releases</url>
         </repository>
     </repositories>
+
 </project>

@@ -6,8 +6,8 @@
 # out
 out/
 
-# Resources
-/src/main/resources
+# MANIFEST.MF
+src/main/resources/META-INF/
 
 # Maven
 log/
