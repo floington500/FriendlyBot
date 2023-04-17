@@ -315,11 +315,6 @@ public class MockJDA implements JDA {
     }
 
     @Override
-    public AccountType getAccountType() {
-        throw new RuntimeException("Method does not exist!");
-    }
-
-    @Override
     public RestAction<ApplicationInfo> retrieveApplicationInfo() {
         throw new RuntimeException("Method does not exist!");
     }
