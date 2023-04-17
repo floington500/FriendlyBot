@@ -43,6 +43,7 @@ public class PlayerManager {
      */
     public void loadAndPlay(SlashCommandInteractionEvent ctx, String trackUrl) {
         final GuildMusicManager musicManager = this.getMusicManager(ctx.getGuild());
+        ctx.deferReply().queue();
 
         // load the track from the specified URL and handle the result
         audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
@@ -57,7 +58,7 @@ public class PlayerManager {
                 loadSong(audioTrack);
 
                 String message = "Adding to queue: `" + audioTrack.getInfo().title + "` by `" + audioTrack.getInfo().author + '`';
-                ctx.reply(message).queue();
+                ctx.getHook().editOriginal(message).queue();
             }
 
             /**
@@ -68,14 +69,13 @@ public class PlayerManager {
              */
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
-                TrackScheduler trackScheduler = musicManager.getScheduler();
 
                 if (audioPlaylist.isSearchResult()){
                     AudioTrack audioTrack = audioPlaylist.getTracks().get(0);
                     loadSong(audioTrack);
 
                     String message = "Adding to queue: `" + audioTrack.getInfo().title + "` by `" + audioTrack.getInfo().author + '`';
-                    ctx.reply(message).queue();
+                    ctx.getHook().editOriginal(message).queue();
                     return;
                 }
 
@@ -84,8 +84,7 @@ public class PlayerManager {
                 }
 
                 String message = "Adding to `playlist` to queue!";
-                ctx.reply(message).queue();
-                return;
+                ctx.getHook().editOriginal(message).queue();
             }
 
             /**
@@ -121,7 +120,7 @@ public class PlayerManager {
              */
             @Override
             public void loadFailed(FriendlyException e) {
-                ctx.reply("Failed to load query").setEphemeral(true).queue();
+                ctx.getHook().editOriginal("Failed to load query").queue();
             }
         });
     }
