@@ -36,5 +36,4 @@ public class OnGuildVoiceUpdate extends ListenerAdapter {
         PlayerManager.getInstance().getMusicManager(guild).stopPlayer();
         guild.getAudioManager().closeAudioConnection();
     }
-
 }

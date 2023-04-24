@@ -110,7 +110,7 @@ public class PlayerManager {
              */
             @Override
             public void noMatches() {
-                ctx.reply("No matches were found!").setEphemeral(true).queue();
+                ctx.getHook().editOriginal("No matches were found!").queue();
             }
 
             /**
