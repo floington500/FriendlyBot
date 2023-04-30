@@ -23,7 +23,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.clf.Main</mainClass> <!-- add main class to the build path  -->
+                                    <mainClass>net.clf.Main</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
                                     <resource>.env</resource>
@@ -76,11 +76,10 @@
             <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.9</version>
         </dependency>
     </dependencies>
 
