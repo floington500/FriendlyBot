@@ -12,5 +12,5 @@ RUN mvn dependency:resolve
 COPY /src ./src/
 RUN mvn package -DskipTests
 
-# pass in program arguements here
+# pass in program arguements here if needed
 CMD ["java", "-jar", "target/FriendlyBot-1.2.4.jar"]
