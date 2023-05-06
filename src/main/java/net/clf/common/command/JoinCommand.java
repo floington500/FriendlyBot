@@ -48,25 +48,23 @@ public class JoinCommand extends VoiceAction {
         final GuildVoiceState memberVoiceState = client.getVoiceState();
 
         // check to see if the user isn't in a voice channel
+        assert memberVoiceState != null;
         if (!memberVoiceState.inAudioChannel()) {
             ctx.reply("You need to be in a voice channel to use this command!").setEphemeral(true).queue();
             return;
         }
 
-        final int maxMemberSize = memberVoiceState.getChannel().getUserLimit();
-        if (maxMemberSize != 0 && memberVoiceState.getChannel().getMembers().size() > maxMemberSize) {
+        memberChannel = Objects.requireNonNull(memberVoiceState.getChannel()).asVoiceChannel();
+
+        final int maxMemberSize = memberChannel.getUserLimit(),
+                numMembers = memberChannel.getMembers().size();
+        // check if channel is full
+        if (maxMemberSize != 0 && numMembers >= maxMemberSize) {
             ctx.reply("Too many users are in the channel!!").setEphemeral(true).queue();
             return;
         }
 
         audioManager = ctx.getGuild().getAudioManager();
-        memberChannel = Objects.requireNonNull(memberVoiceState.getChannel()).asVoiceChannel();
-
-        // check if the bot has permission to join the user's voice channel
-        if (!memberChannel.canTalk(self)) {
-            ctx.reply("I don't have permission to join that channel!").setEphemeral(true).queue();
-            return;
-        }
 
         handleVoice(ctx);
     }
