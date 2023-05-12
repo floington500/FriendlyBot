@@ -67,6 +67,7 @@ public class DiscordBot {
         commandHandler.addCommand(Commands.slash("volume", "control how loud the music that the bot is playing")
                 .addOption(OptionType.INTEGER, "amount", "the new volume for the player to play at", true), new VolumeCommand());
         commandHandler.addCommand(Commands.slash("pause", "used for both pausing and resuming a song"), new PauseCommand());
+        commandHandler.addCommand(Commands.slash("shuffle", "used to shuffle the queue"), new ShuffleCommand());
 
         commandHandler.updateCommands();
 
