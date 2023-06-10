@@ -1,16 +1,17 @@
-# specify the base image to use
-FROM maven:3.8.4-openjdk-17
+FROM maven
 
 WORKDIR /app
 
-# copy the .env file
+# env file containing bot token
 COPY .env ./
 
+# copy pom.xml and resolve dependencies
 COPY pom.xml .
 RUN mvn dependency:resolve
 
+# copy source files then build jar
 COPY /src ./src/
-RUN mvn package -DskipTests
+RUN mvn package
 
-# pass in program arguements here if needed
+# pass in program arguements here if any
 CMD ["java", "-jar", "target/FriendlyBot-1.2.4.jar"]
