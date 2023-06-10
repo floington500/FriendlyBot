@@ -1,7 +1,7 @@
 package unit;
 
-import net.clf.jda.commands.handler.CommandHandlerImpl;
-import net.clf.jda.config.DefaultReplyMessages;
+import com.github.flo456123.FriendlyBot.jda.commands.handler.CommandHandlerImpl;
+import com.github.flo456123.FriendlyBot.jda.config.DefaultReplyMessages;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
