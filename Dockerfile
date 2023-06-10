@@ -14,4 +14,4 @@ COPY /src ./src/
 RUN mvn package
 
 # pass in program arguements here if any
-CMD ["java", "-jar", "target/FriendlyBot-1.2.4.jar"]
+CMD ["java", "-jar", "target/friendly-bot-1.2.4.jar"]
