@@ -31,7 +31,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.flo456123.FriendlyBot.Main</mainClass>
+                                    <mainClass>com.github.floington500.FriendlyBot.Main</mainClass>
                                 </transformer>
                             </transformers>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
