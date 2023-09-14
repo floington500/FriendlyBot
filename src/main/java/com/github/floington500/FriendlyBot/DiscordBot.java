@@ -1,6 +1,5 @@
 package com.github.floington500.FriendlyBot;
 
-import com.github.flo456123.FriendlyBot.common.command.*;
 import com.github.floington500.FriendlyBot.common.listeners.OnGuildVoiceUpdate;
 import com.github.floington500.FriendlyBot.common.listeners.OnSlashCommands;
 import com.github.floington500.FriendlyBot.jda.commands.handler.CommandHandlerImpl;
