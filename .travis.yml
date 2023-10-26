@@ -1,0 +1,18 @@
+language: java
+jdk:
+  - openjdk17
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: Run Tests
+      script:
+        - sudo apt install maven
+        - mvn test
+    - stage: Deploy
+      script: 'if [ "$TRAVIS_PULL_REQUEST" = false ] ; then bash scripts/deploy_docker.sh; fi'
+      on:
+        branch:
+          master
