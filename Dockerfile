@@ -2,11 +2,15 @@ FROM maven
 
 WORKDIR /app
 
-# env file containing bot token
-COPY .env ./
+# copy env file if present
+RUN if [ -f .env ]; then \
+      COPY .env /app/.env; \
+    fi
 
-# copy pom.xml and resolve dependencies
+# copy pom.xml
 COPY pom.xml .
+
+# resolve missing dependencies
 RUN mvn dependency:resolve
 
 # copy source files then build jar
