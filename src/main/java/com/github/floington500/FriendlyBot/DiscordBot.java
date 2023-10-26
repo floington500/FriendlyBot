@@ -10,6 +10,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.EnumSet;
 
@@ -18,10 +20,12 @@ import java.util.EnumSet;
  */
 @SuppressWarnings("unused")
 public class DiscordBot {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private String token;
     private final JDA jda;
 
     public DiscordBot(String token) throws InterruptedException {
+        LOGGER.info("Starting up music bot.");
         this.jda = createInstance(token);
 
         setup();

@@ -39,10 +39,10 @@ public class Main {
                 }
             }
 
-            LOGGER.info("Starting bot...");
+
             startup = new DiscordBot(token);
         } catch (InterruptedException e) {
-            LOGGER.error("Failed to login!");
+            LOGGER.error("Failed to authenticate!");
         }
     }
 }
