@@ -2,9 +2,11 @@ FROM maven
 
 WORKDIR /app
 
+SHELL ["/bin/bash", "-c"]
+
 # create env file
 COPY scripts/setup.sh .
-RUN setup.sh
+RUN /bin/bash ./setup.sh
 
 # copy pom.xml
 COPY pom.xml .
