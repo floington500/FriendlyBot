@@ -5,6 +5,8 @@ WORKDIR /app
 # copy env file if present
 RUN if [ -f .env ]; then \
       COPY .env /app/.env; \
+    else \
+        echo ${{ secrets.BOT_TOKEN }} > .env \
     fi
 
 # copy pom.xml
