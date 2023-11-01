@@ -1,0 +1,1 @@
+echo "${{ secrets.BOT_TOKEN }}" > .env

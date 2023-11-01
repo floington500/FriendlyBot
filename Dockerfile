@@ -2,12 +2,9 @@ FROM maven
 
 WORKDIR /app
 
-# copy env file if present
-RUN if [ -f .env ]; then \
-      COPY .env /app/.env; \
-    else \
-        echo ${{ secrets.BOT_TOKEN }} > .env \
-    fi
+# create env file
+COPY scripts/setup.sh .
+RUN setup.sh
 
 # copy pom.xml
 COPY pom.xml .
