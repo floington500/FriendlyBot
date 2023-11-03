@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "${{ secrets.BOT_TOKEN }}" > .env
+echo "$BOT_TOKEN" > .env
