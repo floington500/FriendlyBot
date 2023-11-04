@@ -33,3 +33,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/private:friendly-bot
+          platforms: linux/amd64,linux/arm64
