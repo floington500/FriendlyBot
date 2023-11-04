@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          maven-version: 3.9.5 # Adjust the Maven version if needed
+          maven-version: 3.9.5
 
       - name: Build with Maven
         run: mvn clean install
