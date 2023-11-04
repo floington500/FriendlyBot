@@ -12,5 +12,8 @@ RUN mvn dependency:resolve
 COPY /src ./src/
 RUN mvn package
 
+# use token in env file
+COPY .env .
+
 # pass in program arguements here if any
-CMD ["java", "-jar", "target/friendly-bot-1.2.4.jar", "-token", "$TOKEN"]
+CMD ["java", "-jar", "target/friendly-bot-1.2.4.jar"]
