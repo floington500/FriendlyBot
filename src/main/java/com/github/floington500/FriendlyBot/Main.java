@@ -39,7 +39,7 @@ public class Main {
                 }
             }
 
-            System.out.println(token);
+            LOGGER.info("Token value: " + token);
             startup = new DiscordBot(token);
         } catch (InterruptedException e) {
             LOGGER.error("Failed to authenticate!");
