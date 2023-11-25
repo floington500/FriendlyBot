@@ -20,6 +20,7 @@ import java.util.EnumSet;
  */
 @SuppressWarnings("unused")
 public class DiscordBot {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private String token;
     private final JDA jda;

@@ -1,6 +1,10 @@
 package com.github.floington500.FriendlyBot.jda.commands;
 
 import com.github.floington500.FriendlyBot.common.command.JoinCommand;
+import com.github.floington500.FriendlyBot.common.lavaplayer.GuildMusicManager;
+import com.github.floington500.FriendlyBot.common.lavaplayer.PlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -17,7 +21,7 @@ public abstract class VoiceAction implements ICommand {
      * @param ctx the {@link SlashCommandInteractionEvent}.
      * @return true if the user and bot are in the same channel, false otherwise.
      */
-    public void checkChannel(SlashCommandInteractionEvent ctx) {
+    protected void checkChannel(SlashCommandInteractionEvent ctx) {
         final Member self = ctx.getGuild().getSelfMember();
         final Member user = ctx.getMember();
 
@@ -37,6 +41,26 @@ public abstract class VoiceAction implements ICommand {
         }
 
         handleVoice(ctx);
+    }
+
+    /**
+     * Gets the music manager for a guild if a track is playing.
+     *
+     * @param ctx the context of the interaction
+     * @return the music manager if a track is playing
+     * @throws IllegalStateException if there is no track currently playing
+     */
+    protected GuildMusicManager getMusicManager(SlashCommandInteractionEvent ctx) throws IllegalStateException {
+        final Guild guild = ctx.getGuild();
+        assert guild != null;
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
+        final AudioPlayer audioPlayer = musicManager.getAudioPlayer();
+
+        if (audioPlayer.getPlayingTrack() == null) {
+            throw new IllegalStateException("There is no track currently playing!");
+        }
+
+        return musicManager;
     }
 
     /**

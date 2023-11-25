@@ -19,14 +19,12 @@ public class SkipCommand extends VoiceAction {
      */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
-        Guild guild = ctx.getGuild();
-        assert guild != null;
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
-        final AudioPlayer audioPlayer = musicManager.getAudioPlayer();
+        GuildMusicManager musicManager;
 
-        // check if there is a track playing
-        if (audioPlayer.getPlayingTrack() == null) {
-            ctx.reply("There is no track currently playing").setEphemeral(true).queue();
+        try {
+            musicManager = getMusicManager(ctx);
+        } catch (IllegalStateException e) {
+            ctx.reply(e.getMessage()).setEphemeral(true).queue();
             return;
         }
 
