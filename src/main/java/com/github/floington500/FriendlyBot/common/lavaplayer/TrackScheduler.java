@@ -116,6 +116,17 @@ public class TrackScheduler extends AudioEventAdapter {
         player.startTrack(queue.poll(), false);
     }
 
+    public boolean seek(int pos) {
+        long duration = player.getPlayingTrack().getDuration();
+
+        if (pos < 0 || pos > duration) {
+            return false;
+        }
+
+        player.getPlayingTrack().setPosition(pos);
+        return true;
+    }
+
     /**
      * Called automatically when a track has finished playing.
      *

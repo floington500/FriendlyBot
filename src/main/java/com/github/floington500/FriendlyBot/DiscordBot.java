@@ -72,6 +72,8 @@ public class DiscordBot {
                 .addOption(OptionType.INTEGER, "amount", "the new volume for the player to play at", true), new VolumeCommand());
         commandHandler.addCommand(Commands.slash("pause", "used for both pausing and resuming a song"), new PauseCommand());
         commandHandler.addCommand(Commands.slash("shuffle", "used to shuffle the queue"), new ShuffleCommand());
+        commandHandler.addCommand(Commands.slash("seek", "seek a current timestamp in a song")
+                .addOption(OptionType.INTEGER, "seconds", "the timestamp to seek", true), new SeekCommand());
 
         commandHandler.updateCommands();
 
