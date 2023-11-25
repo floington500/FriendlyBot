@@ -14,12 +14,12 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
  * voice-related commands.
  */
 public abstract class VoiceAction implements ICommand {
+
     /**
-     * Checks whether the user who triggered the command and the bot are in the same voice channel.
-     * If the bot or the user are not in a voice channel, the bot will automatically join the user's voice channel.
+     * Checks if the user executing a command is in a channel and
+     * joins the channel if the bot is not already in the channel.
      *
      * @param ctx the {@link SlashCommandInteractionEvent}.
-     * @return true if the user and bot are in the same channel, false otherwise.
      */
     protected void checkChannel(SlashCommandInteractionEvent ctx) {
         final Member self = ctx.getGuild().getSelfMember();

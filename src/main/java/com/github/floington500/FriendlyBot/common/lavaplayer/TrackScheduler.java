@@ -66,7 +66,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     /**
      * Loops the current songs in the queue.
-     * @return
+     * @return if the queue is looping.
      */
     public boolean isLoopingQueue() {
         return looping == 2;

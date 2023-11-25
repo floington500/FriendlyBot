@@ -1,10 +1,7 @@
 package com.github.floington500.FriendlyBot.common.command;
 
-import com.github.floington500.FriendlyBot.jda.commands.VoiceAction;
 import com.github.floington500.FriendlyBot.common.lavaplayer.GuildMusicManager;
-import com.github.floington500.FriendlyBot.common.lavaplayer.PlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.api.entities.Guild;
+import com.github.floington500.FriendlyBot.jda.commands.VoiceAction;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
