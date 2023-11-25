@@ -1,10 +1,7 @@
 package com.github.floington500.FriendlyBot.common.command;
 
-import com.github.floington500.FriendlyBot.jda.commands.VoiceAction;
 import com.github.floington500.FriendlyBot.common.lavaplayer.GuildMusicManager;
-import com.github.floington500.FriendlyBot.common.lavaplayer.PlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import net.dv8tion.jda.api.entities.Guild;
+import com.github.floington500.FriendlyBot.jda.commands.VoiceAction;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
@@ -19,14 +16,12 @@ public class SkipCommand extends VoiceAction {
      */
     @Override
     protected void handleVoice(SlashCommandInteractionEvent ctx) {
-        Guild guild = ctx.getGuild();
-        assert guild != null;
-        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
-        final AudioPlayer audioPlayer = musicManager.getAudioPlayer();
+        GuildMusicManager musicManager;
 
-        // check if there is a track playing
-        if (audioPlayer.getPlayingTrack() == null) {
-            ctx.reply("There is no track currently playing").setEphemeral(true).queue();
+        try {
+            musicManager = getMusicManager(ctx);
+        } catch (IllegalStateException e) {
+            ctx.reply(e.getMessage()).setEphemeral(true).queue();
             return;
         }
 

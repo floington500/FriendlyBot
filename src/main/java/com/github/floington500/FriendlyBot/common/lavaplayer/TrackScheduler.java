@@ -66,7 +66,7 @@ public class TrackScheduler extends AudioEventAdapter {
 
     /**
      * Loops the current songs in the queue.
-     * @return
+     * @return if the queue is looping.
      */
     public boolean isLoopingQueue() {
         return looping == 2;
@@ -114,6 +114,22 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     public void nextTrack() {
         player.startTrack(queue.poll(), false);
+    }
+
+    /**
+     * Seeks a position in the currently playing track.
+     *
+     * @param pos the position to seek in the song
+     * @throws IllegalStateException if the time is not in the range of the song duration
+     */
+    public void seek(long pos) throws IllegalStateException {
+        long duration = player.getPlayingTrack().getDuration();
+
+        if (pos < 0 || pos > duration) {
+            throw new IllegalStateException("Timestamp is not in the range of the song duration.");
+        }
+
+        player.getPlayingTrack().setPosition(pos);
     }
 
     /**
